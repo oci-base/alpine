@@ -2,13 +2,13 @@
 #
 set -x
 ARCHITECTURES="aarch64 armhf armv7 ppc64le s360x x86 x86_64"
-# renovate: datasource=github-tags depName=alpinelinux/aports extractVersion=^v(?<version>.*)$
+# renovate: datasource=github-tags depName=alpinelinux/aports extractVersion=^(?<version>.*)$
 VERSION=3.17.2
 RELEASE=$(echo "$VERSION" | cut -d '.' -f 1-2)
 MANIFEST=ghcr.io/oci-base/alpine
 
 buildah manifest create "$MANIFEST:v$VERSION"
-for arch in $(echo $ARCHITECTURES); do
+for arch in "$(echo "$ARCHITECTURES")"; do
   ctr=$(buildah from --arch "$arch" scratch)
   buildah add "$ctr" https://dl-cdn.alpinelinux.org/alpine/v"$RELEASE/releases/$arch/alpine-netboot-$VERSION-$arch".tar.gz
   buildah commit --manifest "$MANIFEST:v$VERSION" "$ctr" "$MANIFEST:$VERSION-$arch"
