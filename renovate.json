@@ -7,11 +7,13 @@
   "regexManagers": [
     {
       "fileMatch": [
-        "(^|/)base.sh$"
+        "^version.txt$"
       ],
       "matchStrings": [
-        "#\\srenovate:\\sdatasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s(ENV|ARG) .*?_VERSION=(?<currentValue>.*)\\s"
-      ]
+        "(?<currentValue>.*?)\\n"
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "alpinelinux/aports"
     }
   ],
   "semanticCommits": true,
