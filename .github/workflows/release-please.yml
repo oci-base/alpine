@@ -16,5 +16,5 @@ jobs:
       - uses: google-github-actions/release-please-action@v3.7.5
         with:
           token: ${{ secrets.RENOVATE_GITLAB_TOKEN }}
-          release-type: node
+          release-type: simple
           package-name: release-please-action
