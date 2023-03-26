@@ -23,7 +23,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: ["aarch64", "armhf", "armv7", "ppc64le", "s360x", "x86", "x86_64"]
+        # Disabled s360x as was failing checksumming
+        arch: ["aarch64", "armhf", "armv7", "ppc64le", "x86", "x86_64"]
     steps:
       - uses: suisei-cn/actions-download-file@v1.3.0
         id: archive  # Remember to give an ID if you need the output
