@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  VERSION: 3.16.1
+  VERSION: 3.16.4
   RELEASE: 3.16
   ACTIONS_RUNNER_DEBUG: true
   REGISTRY_USER: ${{ github.actor }}
