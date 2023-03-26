@@ -26,14 +26,14 @@ jobs:
         arch: ["aarch64", "armhf", "armv7", "ppc64le", "s360x", "x86", "x86_64"]
     steps:
       - uses: suisei-cn/actions-download-file@v1.3.0
-        id: archive-${{ matrix.arch }}  # Remember to give an ID if you need the output
+        id: archive  # Remember to give an ID if you need the output
         name: Download the file
         with:
           url: "https://dl-cdn.alpinelinux.org/alpine/v${{ env.RELEASE }}/releases/${{ matrix.arch }}/alpine-netboot-${{ env.VERSION }}-${{ matrix.arch }}.tar.gz"
           target: ./
           auto-match: false
       - uses: suisei-cn/actions-download-file@v1.3.0
-        id: asc-${{ matrix.arch }}  # Remember to give an ID if you need the output
+        id: asc  # Remember to give an ID if you need the output
         name: Download the file
         with:
           url: "https://dl-cdn.alpinelinux.org/alpine/v${{ env.RELEASE }}/releases/${{ matrix.arch }}/alpine-netboot-${{ env.VERSION }}-${{ matrix.arch }}.tar.gz.asc"
@@ -50,8 +50,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        install_latest: [ true, false ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -63,7 +61,6 @@ jobs:
           path: "buildah-build"
 
       - name: Install latest buildah
-        if: matrix.install_latest
         run: |
           bash buildah-build/.github/install_latest_buildah.sh
       - name: Install qemu dependency
