@@ -12,6 +12,9 @@ env:
   VERSION: 3.16.1
   RELEASE: 3.16
   ACTIONS_RUNNER_DEBUG: true
+  REGISTRY_USER: ${{ github.actor }}
+  REGISTRY_PASSWORD: ${{ github.token }}
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 permissions:
   contents: write
@@ -70,6 +73,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y qemu-user-static
 
+      - name: Log in to ghcr.io
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+
       - name: Create manifest
         env:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
@@ -86,5 +96,4 @@ jobs:
             buildah add "$ctr" https://dl-cdn.alpinelinux.org/alpine/"$RELEASE/releases/$arch/alpine-netboot-$VERSION-$arch".tar.gz
             buildah commit --manifest "$MANIFEST:v$VERSION" "$ctr" "$MANIFEST:$VERSION-$arch"
           done
-          echo "$GITHUB_TOKEN" | buildah login -u "$GITHUB_ACTOR" --password-stdin ghcr.io
           buildah manifest push --all "$MANIFEST:v$VERSION" docker://"$MANIFEST:v$VERSION"
