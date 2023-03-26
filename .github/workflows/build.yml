@@ -83,5 +83,5 @@ jobs:
             buildah add "$ctr" https://dl-cdn.alpinelinux.org/alpine/"$RELEASE/releases/$arch/alpine-netboot-$VERSION-$arch".tar.gz
             buildah commit --manifest "$MANIFEST:v$VERSION" "$ctr" "$MANIFEST:$VERSION-$arch"
           done
-          echo "$GITHUB_TOKEN" | buildah login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          echo "$GITHUB_TOKEN" | buildah login -u "$GITHUB_ACTOR" --password-stdin ghcr.io
           buildah manifest push --all "$MANIFEST:v$VERSION" docker://"$MANIFEST:v$VERSION"
