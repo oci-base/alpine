@@ -96,4 +96,15 @@ jobs:
             buildah add "$ctr" https://dl-cdn.alpinelinux.org/alpine/"$RELEASE/releases/$arch/alpine-netboot-$VERSION-$arch".tar.gz
             buildah commit --manifest "$MANIFEST:v$VERSION" "$ctr" "$MANIFEST:$VERSION-$arch"
           done
-          buildah manifest push --all "$MANIFEST:v$VERSION" docker://"$MANIFEST:v$VERSION"
+
+      - name: Push To GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push
+        with:
+          image: ghcr.io/oci-base/alpine
+          tags: v${{ env.VERSION }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+          extra-args: |
+            --disable-content-trust
