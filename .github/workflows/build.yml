@@ -54,6 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+    permissions:
+      contents: write
+      packages: write
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -81,14 +85,11 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
 
       - name: Create manifest
-        env:
-          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
-
         run: |
           ARCHITECTURES="aarch64 armhf armv7 ppc64le s360x x86 x86_64"
           VERSION=$(cat version.txt | cut -d 'v' -f 2)
           RELEASE=$(echo "$VERSION" | cut -d '.' -f 1-2)
-          MANIFEST=alpine
+          MANIFEST=ghcr.io/oci-base/alpine
 
           buildah manifest create "$MANIFEST:v$VERSION"
           for arch in $(echo $ARCHITECTURES); do
@@ -98,13 +99,9 @@ jobs:
           done
 
       - name: Push To GHCR
-        uses: redhat-actions/push-to-registry@v2
-        id: push
-        with:
-          image: alpine
-          tags: v${{ env.VERSION }}
-          registry: ${{ env.IMAGE_REGISTRY }}
-          username: ${{ env.REGISTRY_USER }}
-          password: ${{ env.REGISTRY_PASSWORD }}
-
-
+        env:
+          REGISTRY_AUTH_FILE: /run/user/1001/containers/auth.json
+        run: |
+          VERSION=$(cat version.txt | cut -d 'v' -f 2)
+          MANIFEST=ghcr.io/oci-base/alpine
+          buildah manifest push --all "$MANIFEST:v$VERSION" docker://"$MANIFEST:v$VERSION"
