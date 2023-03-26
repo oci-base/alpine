@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.16.4](https://github.com/oci-base/alpine/compare/v3.16.3...v3.16.4) (2023-03-26)
+
+
+### Miscellaneous Chores
+
+* release backfill ([c83c7c5](https://github.com/oci-base/alpine/commit/c83c7c56618a8e81d9b00d6b16ad775baa506f7b))
+
 ## [3.16.3](https://github.com/oci-base/alpine/compare/v3.16.2...v3.16.3) (2023-03-26)
 
 
