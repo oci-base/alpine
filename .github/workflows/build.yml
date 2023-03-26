@@ -88,7 +88,7 @@ jobs:
           ARCHITECTURES="aarch64 armhf armv7 ppc64le s360x x86 x86_64"
           VERSION=$(cat version.txt | cut -d 'v' -f 2)
           RELEASE=$(echo "$VERSION" | cut -d '.' -f 1-2)
-          MANIFEST=ghcr.io/oci-base/alpine
+          MANIFEST=alpine
 
           buildah manifest create "$MANIFEST:v$VERSION"
           for arch in $(echo $ARCHITECTURES); do
