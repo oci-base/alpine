@@ -99,9 +99,13 @@ jobs:
           done
 
       - name: Push To GHCR
-        env:
-          REGISTRY_AUTH_FILE: /run/user/1001/containers/auth.json
         run: |
           VERSION=$(cat version.txt | cut -d 'v' -f 2)
           MANIFEST=ghcr.io/oci-base/alpine
           buildah manifest push --all "$MANIFEST:v$VERSION" docker://"$MANIFEST:v$VERSION"
+
+      - uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/oci-base/alpine:v${{ env.VERSION }}
+          registry-username: ${{ env.REGISTRY_USER }}
+          registry-password: ${{ env.REGISTRY_PASSWORD }}
