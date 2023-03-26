@@ -101,7 +101,7 @@ jobs:
         uses: redhat-actions/push-to-registry@v2
         id: push
         with:
-          image: ghcr.io/oci-base/alpine
+          image: alpine
           tags: v${{ env.VERSION }}
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
