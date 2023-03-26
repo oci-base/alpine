@@ -71,6 +71,9 @@ jobs:
           sudo apt-get install -y qemu-user-static
 
       - name: Create manifest
+        env:
+          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+
         run: |
           ARCHITECTURES="aarch64 armhf armv7 ppc64le s360x x86 x86_64"
           VERSION=$(cat version.txt | cut -d 'v' -f 2)
