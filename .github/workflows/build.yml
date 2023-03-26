@@ -59,6 +59,7 @@ jobs:
       - name: Checkout Buildah action
         uses: actions/checkout@v3
         with:
+          repository: 'redhat-actions/buildah-build'
           path: "buildah-build"
 
       - name: Install latest buildah
