@@ -9,8 +9,8 @@ on:
       - main
 
 env:
-  VERSION: 3.16.4
-  RELEASE: 3.16
+  VERSION: 3.17.0
+  RELEASE: 3.17
   ACTIONS_RUNNER_DEBUG: true
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
