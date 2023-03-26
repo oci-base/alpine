@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.16.4](https://github.com/oci-base/alpine/compare/v3.16.4...v3.16.4) (2023-03-26)
+
+
+### Bug Fixes
+
+* Correct some of the arch mappings ([6f52665](https://github.com/oci-base/alpine/commit/6f526656551db53ee667fd0de3192a9ecec02b6f))
+
+
+### Miscellaneous Chores
+
+* release backfill ([d52400e](https://github.com/oci-base/alpine/commit/d52400eadbfcbca67a88e0e8341020e09e5d6850))
+* release backfill ([0f5d3e0](https://github.com/oci-base/alpine/commit/0f5d3e04297a0de078cddbf8a71831200c67e91d))
+
 ## [3.16.4](https://github.com/oci-base/alpine/compare/v3.16.3...v3.16.4) (2023-03-26)
 
 
