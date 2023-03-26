@@ -49,6 +49,17 @@ jobs:
       - name: Verify downloaded artifact
         run: |
           gpg --verify alpine-netboot-${{ env.VERSION }}-${{ matrix.arch }}.tar.gz.asc alpine-netboot-${{ env.VERSION }}-${{ matrix.arch }}.tar.gz
+      - name: Rename to march registry arch naming
+        if: ${{ matrix.arch == 'x86_64' }}
+        run: |
+          mv alpine-netboot-${{ env.VERSION }}-${{ matrix.arch }}.tar.gz \
+               alpine-netboot-${{ env.VERSION }}-amd64.tar.gz
+
+      - name: Rename to march registry arch naming
+        if: ${{ matrix.arch == 'aarch64' }}
+        run: |
+          mv alpine-netboot-${{ env.VERSION }}-${{ matrix.arch }}.tar.gz \
+               alpine-netboot-${{ env.VERSION }}-arm64v8.tar.gz
   manifest:
     needs: fetch
     runs-on: ubuntu-latest
@@ -86,7 +97,7 @@ jobs:
 
       - name: Create manifest
         run: |
-          ARCHITECTURES="aarch64 armhf armv7 ppc64le s360x x86 x86_64"
+          ARCHITECTURES="arm64v8 arm32v7 ppc64le i386 amd64"
           VERSION=$(cat version.txt | cut -d 'v' -f 2)
           RELEASE=$(echo "$VERSION" | cut -d '.' -f 1-2)
           MANIFEST=ghcr.io/oci-base/alpine
