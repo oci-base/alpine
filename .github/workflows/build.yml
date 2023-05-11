@@ -132,6 +132,6 @@ jobs:
     with:
       image: ghcr.io/oci-base/alpine
       registry-username: ${{ github.actor }}
-      digest: ${{ env.DIGEST }}
+      digest: ${{ needs.manifest.outputs.DIGEST }}
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
