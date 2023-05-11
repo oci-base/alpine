@@ -114,7 +114,7 @@ jobs:
           VERSION=$(cat version.txt | cut -d 'v' -f 2)
           MANIFEST=ghcr.io/oci-base/alpine
           buildah manifest push --all "$MANIFEST:v$VERSION" docker://"$MANIFEST:v$VERSION"
-
+          echo "DIGEST=$(podman inspect --format='{{index .RepoDigests 0}}' $MANIFEST:v$VERSION)" >> "$GITHUB_ENV"
       - uses: anchore/sbom-action@v0
         with:
           image: ghcr.io/oci-base/alpine:v${{ env.VERSION }}
@@ -132,5 +132,6 @@ jobs:
     with:
       image: ghcr.io/oci-base/alpine
       registry-username: ${{ github.actor }}
+      digest: ${{ env.DIGEST }}
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
