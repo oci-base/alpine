@@ -70,12 +70,12 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Checkout Buildah action
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: 'redhat-actions/buildah-build'
           path: "buildah-build"
