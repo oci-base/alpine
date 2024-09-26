@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.17.2](https://github.com/oci-base/alpine/compare/v3.17.1...v3.17.2) (2023-05-11)
+
+
+### Bug Fixes
+
+* Use outputs not envs. ([ea3e10f](https://github.com/oci-base/alpine/commit/ea3e10f2c5c129e1439725018843ec64c2d16924))
+
 ## [3.17.1](https://github.com/oci-base/alpine/compare/v3.17.0...v3.17.1) (2023-03-26)
 
 
